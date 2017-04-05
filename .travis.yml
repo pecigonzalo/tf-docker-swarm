@@ -1,0 +1,31 @@
+language: python
+sudo: false
+dist: trusty
+
+# Only build on master branch
+branches:
+  only:
+  - master
+
+install:
+  - wget -O terraform.zip https://releases.hashicorp.com/terraform/0.8.8/terraform_0.8.8_linux_amd64.zip
+  - unzip terraform.zip -d $HOME/.local/bin
+  - rm -f terraform.zip
+
+before_script:
+  - terraform validate
+
+script:
+  - ci/plan.sh
+
+notifications:
+  slack:
+    rooms:
+      - secure: ""
+
+env:
+  global:
+    # AWS_ACCESS_KEY_ID
+    - secure: ""
+    # AWS_SECRET_ACCESS_KEY
+    - secure: ""

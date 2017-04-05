@@ -1,0 +1,11 @@
+# Compiled files
+*.tfstate
+*.tfstate.backup
+
+# Terraform directory
+.terraform/
+.terraform.tfstate*
+
+# Env
+.env
+*.tfvars
