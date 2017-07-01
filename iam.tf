@@ -52,7 +52,7 @@ resource "aws_iam_role" "ProxyRole" {
 }
 
 resource "aws_iam_instance_profile" "ProxyInstanceProfile" {
-  name  = "${var.name}-tf-${var.environment}-ProxyInstanceProfile"
+  name = "${var.name}-tf-${var.environment}-ProxyInstanceProfile"
   role = "${aws_iam_role.ProxyRole.name}"
 }
 

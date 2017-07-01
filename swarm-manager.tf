@@ -2,24 +2,24 @@ data "template_file" "swarm-manager" {
   template = "${file("${path.module}/user_data/swarm-manager.sh.tpl")}"
 
   vars {
-    BASE_SIZE                 = "${var.docker_volume_size}"
-    EXTERNAL_LB               = "${var.elb_id}"
+    BASE_SIZE   = "${var.docker_volume_size}"
+    EXTERNAL_LB = "${var.elb_id}"
 
-    AWS_REGION                = "${var.region}"
-    ACCOUNT_ID                = "${var.aws_account}"
-    VPC_ID                    = "${var.vpc_id}"
+    AWS_REGION = "${var.region}"
+    ACCOUNT_ID = "${var.aws_account}"
+    VPC_ID     = "${var.vpc_id}"
 
     MANAGER_SECURITY_GROUP_ID = "${aws_security_group.swarm-manager.id}"
     WORKER_SECURITY_GROUP_ID  = "${aws_security_group.swarm-node.id}"
 
-    DYNAMODB_TABLE            = "${aws_dynamodb_table.dyndb.id}"
-    SWARM_QUEUE               = "${aws_sqs_queue.swarm-sqs.id}"
-    CLEANUP_QUEUE             = "${aws_sqs_queue.swarm-cleanup.id}"
+    DYNAMODB_TABLE = "${aws_dynamodb_table.dyndb.id}"
+    SWARM_QUEUE    = "${aws_sqs_queue.swarm-sqs.id}"
+    CLEANUP_QUEUE  = "${aws_sqs_queue.swarm-cleanup.id}"
 
-    RUN_VACUUM                = "yes"
+    RUN_VACUUM = "yes"
 
-    ENABLE_CLOUDWATCH_LOGS    = "no"
-    LOG_GROUP_NAME            = "${var.name}-tf-${var.environment}-lg"
+    ENABLE_CLOUDWATCH_LOGS = "no"
+    LOG_GROUP_NAME         = "${var.name}-tf-${var.environment}-lg"
   }
 }
 
@@ -102,7 +102,7 @@ resource "aws_autoscaling_group" "swarm-manager" {
   }
 
   depends_on = [
-    "aws_dynamodb_table.dyndb"
+    "aws_dynamodb_table.dyndb",
   ]
 }
 

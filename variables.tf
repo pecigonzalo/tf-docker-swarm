@@ -75,7 +75,7 @@ variable "vpc_id" {
 
 variable "external_subnets" {
   description = "External subnets of the VPC"
-  type = "list"
+  type        = "list"
 }
 
 variable "associate_public_ip_address" {

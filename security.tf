@@ -36,7 +36,17 @@ resource "aws_security_group" "swarm-cluster" {
     from_port   = 0
     to_port     = 0
     protocol    = -1
-    cidr_blocks = ["${cidrsubnet(data.aws_vpc.swarm-vpc.cidr_block, 4, 1)}"]
+    cidr_blocks = ["${data.aws_vpc.swarm-vpc.cidr_block}"]
+  }
+
+  ingress {
+    from_port = 44554
+    to_port   = 44554
+    protocol  = "tcp"
+
+    security_groups = [
+      "${aws_security_group.elb-external.id}",
+    ]
   }
 
   egress {
@@ -134,7 +144,7 @@ resource "aws_security_group" "swarm-node" {
     from_port   = 0
     to_port     = 0
     protocol    = -1
-    cidr_blocks = ["${cidrsubnet(data.aws_vpc.swarm-vpc.cidr_block, 4, 1)}"]
+    cidr_blocks = ["${data.aws_vpc.swarm-vpc.cidr_block}"]
   }
 
   egress {
